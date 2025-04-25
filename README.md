@@ -15,6 +15,7 @@
 - Tailwind CSS (สำหรับ UI)
 - React Router v6 (จัดการเส้นทาง)
 - MetaMask (เชื่อมต่อกระเป๋าเงิน)
+- Solidity (ภาษาเขียน Smart Contract)
 
 ---
 
@@ -25,7 +26,7 @@
 - ทำงานได้เหมือน User เมื่อเข้ามาใช้งานครั้งแรก
 - สามารถเปลี่ยน Role เป็นได้ทั้ง User และ Admin
 
-### ฝั่งผู้ใช้งาน (User)
+### ฝั่งพนักงาน (User)
 - หน้าแดชบอร๋ดแสดงจำนวนคำขอที่ส่ง, สถานะคำขอ (Pending / Approved / Rejected), และยอดรวมทั้งหมด
 - กรอกแบบฟอร์มเพื่อส่งคำขอเบิกเงิน
 - เลือกชื่อคอร์สและแผนกจาก dropdown
@@ -44,20 +45,20 @@
 ---
 ## ตัวอย่างหน้า Frontend
 
-### หน้า Dashboard Admin
+### หน้า Dashboard (Admin)
 ![Dashboard](https://jirawatchn.github.io/smartreim/image/dashboard.png)
 
-### หน้า รายละเอียดคำขอ Admin
+### หน้า รายละเอียดคำขอ (Admin)
 ![Admin Request Detail](https://jirawatchn.github.io/smartreim/image/admin-request.png)
 
-### หน้า เปลี่ยนสถานะ Admin
+### หน้า เปลี่ยนสถานะ (Admin)
 ![Set Role](https://jirawatchn.github.io/smartreim/image/setrole.png)
 
 ### หน้า ส่งคำขอเบิกค่าอบรม (Guest/User)
 ![Send Request](https://jirawatchn.github.io/smartreim/image/user-request.png)
 
-### หน้า รายละเอียดคำขอ User
+### หน้า รายละเอียดคำขอ (User)
 ![User Request Detail](https://jirawatchn.github.io/smartreim/image/user-request-detail.png)
 
-### หน้า คำขอของฉัน User
+### หน้า คำขอของฉัน (User)
 ![User Table](https://jirawatchn.github.io/smartreim/image/user-table.png)
