@@ -11,6 +11,7 @@ import { UserMyRequestsPage } from "./pages/user/request";
 import { AdminRequestsPage } from "./pages/admin/requests";
 import { SetRolesPage } from "./pages/setRoles";
 import { AdminRequestDetailPage } from "./pages/admin/requestDetaill";
+import { UserRequestDetailPage } from "./pages/user/requestDetail";
 
 function App() {
   const [address, setAddress] = useState<string | null>(null);
@@ -70,6 +71,10 @@ function App() {
           <Route
             path="/user/requests"
             element={<UserMyRequestsPage role={role} address={address} />}
+          />
+           <Route
+            path="/user/requests/:requestId"
+            element={<UserRequestDetailPage role={role} address={address} />}
           />
         </Route>
         <Route

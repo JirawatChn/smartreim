@@ -13,18 +13,17 @@ interface Props {
 interface Request {
   requester: string;
   senderName: string;
-  department: string;
   courseName: string;
+  department: string;
   amount: bigint;
   status: number;
   note: string;
   submittedAt: bigint;
 }
 
-export const AdminRequestDetailPage = ({ role, address }: Props) => {
+export const UserRequestDetailPage = ({ role, address }: Props) => {
   const { requestId } = useParams<{ requestId: string }>();
   const [request, setRequest] = useState<Request | null>(null);
-  const [note, setNote] = useState("");
   const [txStatus, setTxStatus] = useState("");
   const navigate = useNavigate();
 
@@ -43,8 +42,8 @@ export const AdminRequestDetailPage = ({ role, address }: Props) => {
       setRequest({
         requester: r.requester,
         senderName: r.senderName,
-        department: r.department,
         courseName: r.courseName,
+        department: r.department,
         amount: r.amount,
         status: Number(r.status),
         note: r.note,
@@ -55,7 +54,7 @@ export const AdminRequestDetailPage = ({ role, address }: Props) => {
     fetchRequest();
   }, [requestId]);
 
-  const handleApprove = async () => {
+  const handleCancel = async () => {
     if (!window.ethereum || !requestId) return;
 
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -63,40 +62,17 @@ export const AdminRequestDetailPage = ({ role, address }: Props) => {
     const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
 
     try {
-      setTxStatus("Approving request...");
-      const tx = await contract.approveRequest(Number(requestId), note);
+      setTxStatus("Cancelling request...");
+      const tx = await contract.cancelRequest(Number(requestId));
       await tx.wait();
-      setTxStatus("Request approved successfully.");
-      navigate(-1)
-    } catch (err: unknown) {
-      const message = err instanceof Error && err.message ? err.message : "";
-      if (message.includes("Not enough balance in contract")) {
-        setTxStatus("Not enough balance in contract.");
-      } else {
-        setTxStatus("Failed to approve the request.");
-      }
-    }
-  };
-
-  const handleReject = async () => {
-    if (!window.ethereum || !requestId) return;
-
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-    const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
-
-    try {
-      setTxStatus("Rejecting request...");
-      const tx = await contract.rejectRequest(Number(requestId), note);
-      await tx.wait();
-      setTxStatus("Request rejected successfully.");
+      setTxStatus("Request cancelled successfully.");
       navigate(-1)
     } catch (err: unknown) {
       const message =
         err instanceof Error && err.message
           ? err.message
           : "An unknown error occurred.";
-      setTxStatus(`Failed to reject the request. ${message}`);
+      setTxStatus(`Failed to cancel the request. ${message}`);
     }
   };
 
@@ -113,15 +89,15 @@ export const AdminRequestDetailPage = ({ role, address }: Props) => {
       <button
         type="button"
         className="border border-gray-500 px-4 py-1 rounded text-gray-700 cursor-pointer hover:bg-gray-100 transition mb-3"
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          navigate(-1);
+        }}
       >
         ย้อนกลับ
       </button>
 
       <p className="text-2xl font-bold mb-4">รายละเอียดคำขอรหัส {requestId}</p>
-
-      {/* 📋 Card ข้อมูลคำขอ */}
-      <div className="bg-white p-4 shadow-sm rounded mb-6">
+      <div className="bg-white p-4 shadow-sm rounded">
         {request ? (
           <div className="space-y-4 text-base">
             <div>
@@ -167,43 +143,24 @@ export const AdminRequestDetailPage = ({ role, address }: Props) => {
               <span className="font-semibold">หมายเหตุ:</span>{" "}
               {request.note || "-"}
             </div>
+
+            {request.status === 0 && (
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCancel}
+                  className="bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded cursor-pointer"
+                >
+                  ถอนคำขอ
+                </button>
+              </div>
+            )}
+
+            {txStatus && <p className="mt-2 text-gray-700">{txStatus}</p>}
           </div>
         ) : (
           <p>กำลังโหลดข้อมูล...</p>
         )}
       </div>
-
-      {/* 📝 Card Approve / Reject */}
-      {request?.status === 0 && (
-        <div className="bg-white p-4 shadow-sm rounded">
-          <h2 className="text-xl font-semibold mb-4">ดำเนินการคำขอนี้</h2>
-
-          <textarea
-            className="w-full p-2 border rounded mb-4"
-            rows={3}
-            placeholder="ใส่หมายเหตุ (ไม่บังคับ)"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
-
-          <div className="flex gap-3">
-            <button
-              onClick={handleApprove}
-              className="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded cursor-pointer"
-            >
-              อนุมัติ
-            </button>
-            <button
-              onClick={handleReject}
-              className="bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded cursor-pointer"
-            >
-              ปฏิเสธ
-            </button>
-          </div>
-
-          {txStatus && <p className="mt-4 text-gray-700">{txStatus}</p>}
-        </div>
-      )}
     </MainLayout>
   );
 };

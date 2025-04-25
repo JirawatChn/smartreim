@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import contractABI from "../abi/TrainingReimbursement.json";
+import { CONTRACT_ADDRESS } from "../contract/contract";
 
 declare global {
   interface Window {
@@ -9,8 +10,6 @@ declare global {
     };
   }
 }
-
-const contractAddress = "0x49D542CD4aB909eF162b95F635F065FCBAEBd3b3";
 
 export const useRole = (address: string | null) => {
   const [role, setRole] = useState<number | undefined>(undefined);
@@ -22,7 +21,7 @@ export const useRole = (address: string | null) => {
       setIsLoading(true);
 
       const provider = new ethers.BrowserProvider(window.ethereum);
-      const contract = new ethers.Contract(contractAddress, contractABI, provider);
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, provider);
       const roleValue = await contract.roles(address);
       setRole(Number(roleValue));
 

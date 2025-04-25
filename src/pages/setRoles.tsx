@@ -9,7 +9,6 @@ interface SetRolesPageProps {
   address: string | null;
 }
 
-
 export const SetRolesPage = ({ role, address }: SetRolesPageProps) => {
   const [selectedRole, setSelectedRole] = useState<number>(1);
   const [txStatus, setTxStatus] = useState<string>("");
@@ -26,13 +25,18 @@ export const SetRolesPage = ({ role, address }: SetRolesPageProps) => {
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
+      const contract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        contractABI,
+        signer
+      );
 
       const tx = await contract.setRole(selectedRole);
       setTxStatus("Sending transaction...");
 
       await tx.wait();
       setTxStatus("Role updated successfully!");
+      window.location.reload();
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error(err);
@@ -45,9 +49,15 @@ export const SetRolesPage = ({ role, address }: SetRolesPageProps) => {
   };
 
   return (
-    <MainLayout headerText="Set Roles | เปลี่ยนสถานะ" role={role} address={address}>
+    <MainLayout
+      headerText="Set Roles | เปลี่ยนสถานะ"
+      role={role}
+      address={address}
+    >
       <div className="max-w-md p-4 rounded shadow bg-white">
-        <label className="block mb-2 font-medium">เลือก Role ที่ต้องการตั้ง:</label>
+        <label className="block mb-2 font-medium">
+          เลือก Role ที่ต้องการตั้ง:
+        </label>
         <select
           className="border p-2 rounded w-full mb-4"
           value={selectedRole}
@@ -69,4 +79,3 @@ export const SetRolesPage = ({ role, address }: SetRolesPageProps) => {
     </MainLayout>
   );
 };
-
