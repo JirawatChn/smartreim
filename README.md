@@ -1,54 +1,63 @@
-# React + TypeScript + Vite
+# Smart Reim Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ระบบเบิกเงินค่าอบรมที่เชื่อมต่อกับ Smart Contract บน Blockchain โดยใช้ React, TypeScript, และ MetaMask
 
-Currently, two official plugins are available:
+## GitHub & Deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Demo**: [jirawatchn.github.io/smartreim](https://jirawatchn.github.io/smartreim)
+- **Repository**: [github.com/JirawatChn/smartreim](https://github.com/JirawatChn/smartreim)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## เทคโนโลยีที่ใช้
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- React + Vite + TypeScript
+- Ethers.js (เชื่อมต่อกับ Smart Contract)
+- Tailwind CSS (สำหรับ UI)
+- React Router v6 (จัดการเส้นทาง)
+- MetaMask (เชื่อมต่อกระเป๋าเงิน)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ความสามารถของระบบ
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### ทุกคน (Guest)
+- หน้า Login Metamask
+- ทำงานได้เหมือน User เมื่อเข้ามาใช้งานครั้งแรก
+- สามารถเปลี่ยน Role เป็นได้ทั้ง User และ Admin
+
+### ฝั่งผู้ใช้งาน (User)
+- หน้าแดชบอร๋ดแสดงจำนวนคำขอที่ส่ง, สถานะคำขอ (Pending / Approved / Rejected), และยอดรวมทั้งหมด
+- กรอกแบบฟอร์มเพื่อส่งคำขอเบิกเงิน
+- เลือกชื่อคอร์สและแผนกจาก dropdown
+- ตรวจสอบสถานะคำขอของตนเองได้
+- ดูรายละเอียดของคำขอแต่ละรายการ
+- ยกเลิกคำขอได้ (เฉพาะสถานะ Pending)
+
+### ฝั่งผู้ดูแลระบบ (Admin)
+- หน้าแดชบอร๋ดแสดงจำนวนคำขอทั้งหมดที่ระบบได้รับ
+- ดูรายการคำขอทั้งหมดเรียงตามสถานะ
+- กรองเฉพาะคำขอที่ Pending ได้
+- เปิดดูรายละเอียดคำขอ
+- อนุมัติหรือปฏิเสธคำขอ พร้อมใส่หมายเหตุ
+- ส่ง ETH ไปยังผู้ยื่นคำขอ (หากอนุมัติ)
+
+---
+## ตัวอย่างหน้า Frontend
+
+### หน้า Dashboard Admin
+![Dashboard](https://jirawatchn.github.io/smartreim/image/dashboard.png)
+
+### หน้า รายละเอียดคำขอ Admin
+![Admin Request Detail](https://jirawatchn.github.io/smartreim/image/admin-request.png)
+
+### หน้า เปลี่ยนสถานะ Admin
+![Set Role](https://jirawatchn.github.io/smartreim/image/setrole.png)
+
+### หน้า ส่งคำขอเบิกค่าอบรม (Guest/User)
+![Send Request](https://jirawatchn.github.io/smartreim/image/user-request.png)
+
+### หน้า รายละเอียดคำขอ User
+![User Request Detail](https://jirawatchn.github.io/smartreim/image/user-request-detail.png)
+
+### หน้า คำขอของฉัน User
+![User Table](https://jirawatchn.github.io/smartreim/image/user-table.png)
