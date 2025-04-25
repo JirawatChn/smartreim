@@ -8,7 +8,7 @@
 - **Repository**: [github.com/JirawatChn/smartreim](https://github.com/JirawatChn/smartreim)
 
 
-## เทคโนโลยีที่ใช้
+## Technology
 
 - React + Vite + TypeScript
 - Ethers.js (เชื่อมต่อกับ Smart Contract)
@@ -19,7 +19,7 @@
 
 ---
 
-## ความสามารถของระบบ
+## System Features
 
 ### ทุกคน (Guest)
 - หน้า Login Metamask
