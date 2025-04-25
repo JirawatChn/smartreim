@@ -50,7 +50,7 @@ export const SetRolesPage = ({ role, address }: SetRolesPageProps) => {
 
   return (
     <MainLayout
-      headerText="Set Roles | เปลี่ยนสถานะ"
+      headerText="Set Roles | เปลี่ยนสิทธิ์การใช้งาน"
       role={role}
       address={address}
     >
