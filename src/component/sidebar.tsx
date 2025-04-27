@@ -5,7 +5,6 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ role }: SidebarProps) => {
-
   const getRoleText = (role: number) => {
     switch (role) {
       case 1:
@@ -67,15 +66,14 @@ export const Sidebar = ({ role }: SidebarProps) => {
               </Link>
             </>
           )}
-
           {role !== undefined && (
-            <Link to="/set-roles" className="menu-item">
+            <Link to="/set-roles" className="menu-item flex">
               <span className="bold">Set Roles</span>
+              <span className="text-xs text-gray-500">(Demo Only)</span>
             </Link>
           )}
         </nav>
       </div>
-
     </aside>
   );
 };
